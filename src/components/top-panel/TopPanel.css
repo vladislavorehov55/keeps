@@ -1,0 +1,21 @@
+.wrapper {
+    display: flex;
+    width: 100%;
+    height: 50px;
+    box-sizing: border-box;
+    border-bottom: 1px solid black;
+    padding-left: 10px;
+    padding-right: 20px;
+    align-items: center;
+    justify-content: space-between;
+}
+.img-wrapper {
+    width: 16px;
+    height: 16px;
+    margin-right: 25px;
+    cursor: pointer;
+}
+.left-items {
+    display: flex;
+    align-items: center;
+}

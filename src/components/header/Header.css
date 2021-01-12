@@ -1,0 +1,42 @@
+.header {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    border-bottom: 1px solid black;
+    box-sizing: border-box;
+}
+.item {
+    display: flex;
+    align-items: center;
+}
+
+.item:nth-child(3) {
+    width: 50px;
+    padding-right: 50px;
+}
+.search-wrapper, .input {
+    box-sizing: border-box;
+    height: 40px;
+    border-radius: 10px;
+    background-color: rgb(241,242,243);
+}
+.search-wrapper {
+    display: flex;
+    align-items: center;
+    width: 700px;
+    padding-right: 5px ;
+}
+.input {
+    width: 100%;
+    padding: 0 0 0 10px;
+    border: none;
+}
+.svg {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+}

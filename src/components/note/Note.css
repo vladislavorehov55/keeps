@@ -1,0 +1,48 @@
+.note {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    width: 500px;
+    box-sizing: border-box;
+    padding: 10px 0 0 10px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    position: relative;
+}
+.textarea {
+    border: 0;
+    resize: none;
+    padding: 0;
+    height: 31px;
+}
+.img-wrapper {
+    position: relative;
+}
+.img-wrapper:hover .img-delete-btn{
+    display: block;
+}
+.img {
+    width: 100%;
+}
+.img-delete-btn {
+    position: absolute;
+    display: none;
+    right: 10px;
+    bottom: 10px;
+    cursor: pointer;
+}
+.img-choose-btn {
+    display: none;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    /*background-color: white;*/
+    cursor: pointer;
+}
+
+.note:hover .img-choose-btn {
+    display: block;
+}
+

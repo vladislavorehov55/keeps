@@ -1,0 +1,62 @@
+.menu,
+.menu-left-items {
+    display: flex;
+}
+.menu {
+    justify-content: space-between;
+    padding-right: 10px;
+}
+.menu-left-items {
+    justify-content: space-around;
+    width: 200px;
+}
+.menu-right-items {
+    cursor: pointer;
+    border-radius: 5px;
+}
+.menu-right-items:hover {
+    background: rgba(95,99,104,0.039);
+}
+.btn-change-color {
+    position: relative;
+}
+.menu-change-color {
+    position: absolute;
+    border: 1px solid black;
+    background: white;
+    z-index: 1;
+}
+.menu-change-color-svg {
+    width: 80px;
+    height: 80px;
+}
+.btn-more {
+    position: relative;
+}
+.menu-more {
+    position: absolute;
+    width: 200px;
+    background: white;
+    border: 0.5px solid black;
+    box-sizing: border-box;
+    padding-top: 5px;
+    z-index: 1;
+}
+.menu-more-item {
+    height: 30px;
+    cursor: pointer;
+    padding-left: 10px;
+}
+.menu-more-item:hover {
+    background: rgb(235,235,235);
+}
+.svg {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+.svg-del-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}

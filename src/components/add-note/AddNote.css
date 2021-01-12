@@ -1,0 +1,20 @@
+.wrapper {
+    box-sizing: border-box;
+    margin: 30px auto 0;
+    width: 500px;
+    padding: 10px 0 0 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+.title, .text {
+    width: 100%;
+    padding: 0;
+    border: 0;
+    resize: none;
+}
+.img-wrapper {
+    width: 100%;
+}
+.img {
+    width: 100%;
+}
