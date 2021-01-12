@@ -47,7 +47,6 @@ export const notesReducer = (state = initialState, action) => {
                 return note
             })}}
         case CHANGE_NOTE_COLOR:
-            console.log('huy',action.payload)
             return {...state, chosenNotes: [], notes: {...state.notes, [action.payload.noteType]:
                     state.notes[action.payload.noteType].map(note => {
                         if (action.payload.idList.includes(note.id)){
@@ -56,22 +55,14 @@ export const notesReducer = (state = initialState, action) => {
                             }
                         return note})}};
         case DELETE_IMAGE:
-            // if (action.payload.noteType === 'home' || action.payload.noteType === 'archive') {
-            //     const newTrash = [];
-            //     for (let note of state.notes[action.payload.noteType]) {
-            //         if (action.payload.idList.includes(note.id)) {
-            //             note.isVisibleSolidBorder = false;
-            //             newTrash.push(note)
-            //         }
-            //     }
-            //     return {notes: {...state.notes, trash: [...state.notes.trash, ...newTrash],
-            //             [action.payload.noteType]: state.notes[action.payload.noteType].filter(note => !action.payload.idList.includes(note.id))}}
-            // }
-            // else
-            //     return {notes: {...state.notes, trash: state.notes.trash.filter(note => !action.payload.idList.includes(note.id))}}
-            //
 
 
+            return {...state, notes: {...state.notes, [action.payload.noteType] : state.notes[action.payload.noteType].map(note => {
+                        if (note.id === action.payload.id) {
+                            note.imgSrc = note.imgSrc.filter((el, ind) => ind !== action.payload.index )
+                        }
+                        return note
+                    })}}
         case ADD_TO_ARCHIVE:
             return {...state, notes:{...state.notes,archive: [...state.notes.archive, action.payload]}};
 

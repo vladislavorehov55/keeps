@@ -58,12 +58,9 @@ export function addNoteToArchiveInNote(noteType, idList) {
 export function changeNote(noteType, id, propertyName, content, height) {
     return {type: CHANGE_NOTE, payload: {noteType, id, propertyName, content, height}}
 }
-export function deleteImage(noteType, notes, id, src) {
-    const index = notes.findIndex((element) => {
-        return element.imgSrc.includes(src)
-    });
-    notes[noteType][index].imgSrc =  notes[noteType][index].imgSrc.filter(el => el !== src);
-    return {type: DELETE_IMAGE, payload: notes}
+export function deleteImage(noteType, id, index) {
+
+    return {type: DELETE_IMAGE, payload: {noteType, id, index}}
 }
 export function changeNoteColor(noteType, idList, newColor) {
     return {type: CHANGE_NOTE_COLOR, payload: {noteType, idList, newColor}}

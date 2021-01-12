@@ -2,7 +2,7 @@ import React from 'react'
 import MenuNote from "../menu-note/MenuNote";
 import {connect} from 'react-redux'
 import styles from './Note.css'
-import {changeNote, selectNotes} from "../../redux/actionsCreator";
+import {changeNote, deleteImage, selectNotes} from "../../redux/actionsCreator";
 import {saveNotes} from "../../../functions";
 
 class Note extends React.Component{
@@ -22,7 +22,13 @@ class Note extends React.Component{
     onClickSelectNote = () => {
         this.props.selectNotes(this.props.noteType, this.props.note.id)
     }
+    onClickDeleteImage = (index) => {
+        this.props.deleteImage(this.props.noteType, this.props.note.id, index)
+
+        // saveNotes(this.props.notes)
+    }
     render() {
+        // console.log('prp', this.props)
         const {titleHeight, textHeight, backgroundColor,imgSrc, id} = this.props.note;
         return (
             <div className={styles.note}
@@ -38,7 +44,7 @@ class Note extends React.Component{
                             <div className={styles.imgWrapper} key={index}>
                                 <img src={src} className={styles.img} />
                                 <img width="24" height="24" className={styles.imgDeleteBtn} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAI1QTFRFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////6jkV6gAAAC10Uk5TAAF59XQY1qpnahce4msfHTnmfBrM4+H87lloqWlXDjNTmw12LmInKNur2ltWxViJgAAAAAFiS0dELlTTEIcAAAAJcEhZcwABOvYAATr2ATqxVzoAAAC/SURBVDjL7ZLZDoIwEEWLKFDoAC2rgOyLqPz/71nZTCyJL7yYeJJpbqcnaZMOQgvSQR5m5KOERE6KquERTVX0DcEgsEQgxruvm8aIZVPmTNFh1LamaOrI9QghPi8ahGQmDOjc9Fx0BojikGGAhNcETnixMI4ALuKdG2/aS0hZxuMl50vG0g3BIJjHouALnvaCAIsAf+H3hS/fXVY1j/lrYOqq3HsmG9qKQkubNXfXPsEfJP2tWwXp7g8C/mM8ewJj6R7xrBAbDwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMC0wMy0wMlQxMDowMDo1OCswMDowMM5qZE0AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjAtMDMtMDJUMTA6MDA6NTgrMDA6MDC/N9zxAAAARnRFWHRzb2Z0d2FyZQBJbWFnZU1hZ2ljayA2LjcuOC05IDIwMTktMDItMDEgUTE2IGh0dHA6Ly93d3cuaW1hZ2VtYWdpY2sub3JnQXviyAAAABh0RVh0VGh1bWI6OkRvY3VtZW50OjpQYWdlcwAxp/+7LwAAABh0RVh0VGh1bWI6OkltYWdlOjpoZWlnaHQANTEywNBQUQAAABd0RVh0VGh1bWI6OkltYWdlOjpXaWR0aAA1MTIcfAPcAAAAGXRFWHRUaHVtYjo6TWltZXR5cGUAaW1hZ2UvcG5nP7JWTgAAABd0RVh0VGh1bWI6Ok1UaW1lADE1ODMxNDMyNTiFzjAcAAAAE3RFWHRUaHVtYjo6U2l6ZQA1LjMxS0JCfzK5FwAAAF10RVh0VGh1bWI6OlVSSQBmaWxlOi8vLi91cGxvYWRzLzU2L053SWhBNDkvMjE2MS9pbnRlcmZhY2VfZGVsZXRlX3RyYXNoX2Jpbl9yZW1vdmVfaWNvbl8xMzMwMDQucG5niTpOPgAAAABJRU5ErkJggg=="
-                                     // onClick={this.props.deleteImage.bind(this, id, src, this.props.noteType)}
+                                     onClick={this.onClickDeleteImage.bind(this, index)}
                                 />
                             </div>
                         )
@@ -70,7 +76,7 @@ class Note extends React.Component{
         );
     }
 }
-const mapDispatchToProps = {changeNote, selectNotes};
+const mapDispatchToProps = {changeNote, selectNotes, deleteImage};
 const mapStateToProps = state => (
     {notes: state.notes.notes, noteType: state.app.noteType}
 );

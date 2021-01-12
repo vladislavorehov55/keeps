@@ -33,7 +33,6 @@ class MenuNote extends React.Component{
 
 
     onClickChangeColor = (e) => {
-        console.log('hERE', this.props.chosenNotesId.length !== 0 ? Array.from(this.props.chosenNotesId) : [this.props.id])
         e.stopPropagation();
         if (this.props.inAddNote) {
             this.props.changeAddNoteColor(e.target.dataset.color);
@@ -41,7 +40,7 @@ class MenuNote extends React.Component{
         }
         else {
             this.props.changeNoteColor(this.props.noteType,
-                this.props.chosenNotesId ? Array.from(this.props.chosenNotesId) : [this.props.id],
+                this.props.chosenNotesId.length !== 0 ? Array.from(this.props.chosenNotesId) : [this.props.id],
                 e.target.dataset.color);
 
             this.setState((prevState) => ({...prevState, menuColor: {isVisible: false}}))
@@ -65,9 +64,14 @@ class MenuNote extends React.Component{
             this.props.addNoteToArchive(this.props.addNote);
         }
         else {
-            this.props.addNoteToArchiveInNote(this.props.noteType, idList);
+            this.props.addNoteToArchiveInNote(this.props.noteType,
+                this.props.chosenNotesId.length !== 0 ? Array.from(this.props.chosenNotesId) : [this.props.id]);
             saveNotes(this.props.notes)
         }
+    }
+    onClickDeleteNote = () => {
+        this.props.deleteNote(this.props.noteType,
+            this.props.chosenNotesId.length !== 0 ? Array.from(this.props.chosenNotesId) : [this.props.id])
     }
 
     // componentWillUpdate(nextProps, nextState, nextContext) {
@@ -179,8 +183,7 @@ class MenuNote extends React.Component{
                             >
                                 {this.props.isVisibleDelBtn &&
                                 <div className={styles.menuMoreItem}
-                                     onClick={this.props.deleteNote.bind(this, this.props.noteType,
-                                         this.props.chosenNotesId ? Array.from(this.props.chosenNotesId) : [this.props.id])}
+                                     onClick={this.onClickDeleteNote}
 
                                 >Удалить заметку</div>
                                 }
@@ -194,7 +197,7 @@ class MenuNote extends React.Component{
                         this.props.noteType === 'trash' &&
                         <div className={styles.svgDelWrapper}>
                             <svg className={styles.svg} onClick={this.props.deleteNote.bind(this, this.props.noteType,
-                                this.props.chosenNotesId ? Array.from(this.props.chosenNotesId) : [this.props.id])}>
+                                this.props.chosenNotesId.length !== 0 ? Array.from(this.props.chosenNotesId) : [this.props.id])}>
                                 <path d='M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z'/>
                             </svg>
                             <svg className={styles.svg}
@@ -218,6 +221,6 @@ const mapStateToProps = state => ({notes: state.notes.notes, noteType: state.app
 chosenNotesId: state.notes.chosenNotes});
 
 const mapDispatchToProps = ({changeAddNoteColor, changeNoteColor, deleteNote, chooseAddNotePhoto, addNoteToArchive,
-    addNoteToArchiveInNote,unselectNotes,
+    addNoteToArchiveInNote, unselectNotes,
     getAddNoteInitState});
 export default connect(mapStateToProps, mapDispatchToProps)(MenuNote)
