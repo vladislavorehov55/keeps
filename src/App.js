@@ -13,14 +13,14 @@ import Note from "./components/note/Note";
 class App extends React.Component{
     state = {
         // chosenNotesId: [],
-        flexDirection: 'column',
+        // flexDirection: 'column',
     };
 
     componentWillUpdate(nextProps, nextState, nextContext) {
         localStorage.setItem('notes', JSON.stringify(nextProps.notes))
     }
     render(){
-        console.log('props', this.props)
+        console.log(this.props)
         const noteType = this.props.noteType;
         return (
             <>
@@ -29,13 +29,16 @@ class App extends React.Component{
                     <LeftMenu/>
                 }
                 {
-                    <Header/>
+                    this.props.chosenNotes.length ? <TopPanel/> : <Header/>
                 }
 
                 <main>
-                    <AddNote/>
-                    <div className={`${styles.wrapper} ${this.state.flexDirection==='column' ? styles.column : styles.row}`}>
-                        {this.props.notes[noteType].map((note) => <Note note={note} key={note.id}/>)}
+                    {this.props.noteType === 'home' && <AddNote/> }
+                    <div className={`${styles.wrapper} ${this.props.isFlexDirectionColumn ? styles.column : styles.row}`}>
+                        {
+                            this.props.isSearched ?
+                                this.props.searchedNotes.map((note) => <Note note={note} key={note.id}/>) :
+                                this.props.notes[noteType].map((note) => <Note note={note} key={note.id}/>)}
                     </div>
                 </main>
             </>
@@ -46,7 +49,11 @@ const mapStateToProps = (state) => (
     {
         isVisibleLeftPanel: state.app.isVisibleLeftPanel,
         notes: state.notes.notes,
-        noteType: state.app.noteType
+        chosenNotes: state.notes.chosenNotes,
+        searchedNotes: state.notes.searchedNotes,
+        noteType: state.app.noteType,
+        isSearched: state.app.isSearchedNotes,
+        isFlexDirectionColumn: state.app.isFlexDirectionColumn
     }
 );
 

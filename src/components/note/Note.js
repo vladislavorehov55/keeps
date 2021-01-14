@@ -2,7 +2,7 @@ import React from 'react'
 import MenuNote from "../menu-note/MenuNote";
 import {connect} from 'react-redux'
 import styles from './Note.css'
-import {changeNote, deleteImage, selectNotes} from "../../redux/actionsCreator";
+import {changeNote, deleteImage, deleteNoteForever, selectNotes} from "../../redux/actionsCreator";
 import {saveNotes} from "../../../functions";
 
 class Note extends React.Component{
@@ -23,12 +23,12 @@ class Note extends React.Component{
         this.props.selectNotes(this.props.noteType, this.props.note.id)
     }
     onClickDeleteImage = (index) => {
-        this.props.deleteImage(this.props.noteType, this.props.note.id, index)
-
-        // saveNotes(this.props.notes)
+        if (!this.state.text && !this.state.title && this.props.note.imgSrc.length === 1) {
+            return this.props.deleteNoteForever(this.props.noteType, [this.props.note.id])
+        }
+        this.props.deleteImage(this.props.noteType, this.props.note.id, index);
     }
     render() {
-        // console.log('prp', this.props)
         const {titleHeight, textHeight, backgroundColor,imgSrc, id} = this.props.note;
         return (
             <div className={styles.note}
@@ -76,7 +76,7 @@ class Note extends React.Component{
         );
     }
 }
-const mapDispatchToProps = {changeNote, selectNotes, deleteImage};
+const mapDispatchToProps = {changeNote, selectNotes, deleteImage, deleteNoteForever};
 const mapStateToProps = state => (
     {notes: state.notes.notes, noteType: state.app.noteType}
 );

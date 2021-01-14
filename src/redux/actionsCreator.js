@@ -11,7 +11,11 @@ import {
     CHANGE_ADD_NOTE_COLOR,
     GET_ADD_NOTE_INIT_STATE,
     CHOOSE_ADD_NOTE_PHOTO,
-    ADD_TO_ARCHIVE, ADD_TO_ARCHIVE_IN_NOTE, UNSELECT_NOTE, ADD_PHOTO_IN_NOTE_COM,
+    ADD_TO_ARCHIVE,
+    ADD_TO_ARCHIVE_IN_NOTE,
+    UNSELECT_NOTE,
+    ADD_PHOTO_IN_NOTE_COMPONENT,
+    DELETE_NOTE_FOREVER, SEARCH_NOTE, GET_SEARCHED_NOTES, CANCEL_SEARCH_NOTE, CHANGE_FLEX_DIRECTION,
 } from "./actionsTypes";
 
 export function showLeftPanel(flag) {
@@ -43,6 +47,19 @@ export function chooseAddNotePhoto(files) {
             .then(srcList => dispatch({type: CHOOSE_ADD_NOTE_PHOTO, payload: srcList}))
     }
 }
+export function addPhotoInNote(noteType, id, files) {
+    return dispatch => {
+        const promises = [];
+        for (let file of files) {
+            promises.push(new Promise(resolve => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result)}))
+        }
+        Promise.all(promises)
+            .then(srcList => dispatch({type: ADD_PHOTO_IN_NOTE_COMPONENT, payload: {noteType, id, srcList}}))
+    }
+}
 export function addNoteToArchive(note) {
     return {type: ADD_TO_ARCHIVE, payload: note}
 }
@@ -71,12 +88,27 @@ export function deleteNote(noteType, idList) {
 export function selectNotes(noteType, id) {
     return {type: SELECT_NOTE, payload:{noteType, id}}
 }
-export function unselectNotes() {
-    return {type: UNSELECT_NOTE}
+export function unselectNotes(noteType, idList) {
+    return {type: UNSELECT_NOTE, payload: {noteType, idList}}
 }
-export function choosePhotoInNote(noteType, id, imgSrc) {
-    return {type: ADD_PHOTO_IN_NOTE_COM, payload:{noteType, id, imgSrc}}
+
+export function deleteNoteForever(noteType, idList) {
+    return {type: DELETE_NOTE_FOREVER, payload: {noteType,idList}}
 }
+
+export function searchNote(noteType, text) {
+    return {type: SEARCH_NOTE, payload: {noteType, text}}
+}
+export function getSearchedNotes() {
+    return {type: GET_SEARCHED_NOTES}
+}
+export function cancelSearchNote() {
+    return {type: CANCEL_SEARCH_NOTE}
+}
+export function changeFlexDirection() {
+    return {type: CHANGE_FLEX_DIRECTION}
+}
+
 
 
 

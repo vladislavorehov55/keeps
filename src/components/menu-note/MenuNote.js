@@ -6,7 +6,7 @@ import {
     changeNoteColor,
     chooseAddNotePhoto,
     deleteNote,
-    getAddNoteInitState, addNoteToArchiveInNote, addNoteToArchive, unselectNotes
+    getAddNoteInitState, addNoteToArchiveInNote, addNoteToArchive, unselectNotes, addPhotoInNote
 } from "../../redux/actionsCreator";
 import {saveNotes} from "../../../functions";
 
@@ -52,7 +52,7 @@ class MenuNote extends React.Component{
             this.props.chooseAddNotePhoto(e.target.files)
         }
         else {
-            this.props.choosePhotoInNote(e.target.files, this.props.noteType, this.props.id)
+            this.props.addPhotoInNote(this.props.noteType, this.props.id, e.target.files )
         }
     }
     onClickAddToArchive = (idList,e) => {
@@ -221,6 +221,6 @@ const mapStateToProps = state => ({notes: state.notes.notes, noteType: state.app
 chosenNotesId: state.notes.chosenNotes});
 
 const mapDispatchToProps = ({changeAddNoteColor, changeNoteColor, deleteNote, chooseAddNotePhoto, addNoteToArchive,
-    addNoteToArchiveInNote, unselectNotes,
+    addNoteToArchiveInNote, unselectNotes, addPhotoInNote,
     getAddNoteInitState});
 export default connect(mapStateToProps, mapDispatchToProps)(MenuNote)

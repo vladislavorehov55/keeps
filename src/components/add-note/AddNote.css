@@ -12,6 +12,9 @@
     border: 0;
     resize: none;
 }
+.title:focus, .text:focus {
+    outline: none;
+}
 .img-wrapper {
     width: 100%;
 }

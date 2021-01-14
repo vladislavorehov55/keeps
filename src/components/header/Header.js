@@ -1,7 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import styles from './Header.css'
-import {showLeftPanel} from "../../redux/actionsCreator";
+import {
+    showLeftPanel,
+    searchNote,
+    getSearchedNotes,
+    cancelSearchNote,
+    changeFlexDirection
+} from "../../redux/actionsCreator";
 
 class Header extends React.Component{
     state = {
@@ -9,16 +15,18 @@ class Header extends React.Component{
     };
     onChange = (e) => {
         this.setState({searchText: e.target.value}
-        // () => this.props.searchNote(this.props.noteType,this.state.searchText)
+        ,() => {
+            this.props.searchNote(this.props.noteType,this.state.searchText);
+            this.props.getSearchedNotes()}
         )};
     cancelSearch = () => {
         this.setState({searchText: ''}, () => this.props.cancelSearchNote())
     };
 
     openAndCloseLeftMenu = () => {
-        console.log('HUY')
         this.props.showLeftPanel(!this.props.isVisibleLeftPanel)
     };
+
     render() {
         return (
             <header className={styles.header}>
@@ -41,7 +49,7 @@ class Header extends React.Component{
 
                 </div>
                 <div className={styles.item}
-                     // onClick={(e) => this.props.changeDirection(e)}
+                     onClick={this.props.changeFlexDirection}
                 >
                     {
                         this.props.flexDirection === 'column' ?
@@ -57,6 +65,6 @@ class Header extends React.Component{
         );
     }
 }
-const mapStateToProps = state => ({isVisibleLeftPanel: state.app.isVisibleLeftPanel})
-const mapDispatchToProps = ({showLeftPanel});
+const mapStateToProps = state => ({isVisibleLeftPanel: state.app.isVisibleLeftPanel, noteType: state.app.noteType})
+const mapDispatchToProps = ({showLeftPanel, searchNote, getSearchedNotes, cancelSearchNote,changeFlexDirection});
 export default connect(mapStateToProps, mapDispatchToProps)(Header)
