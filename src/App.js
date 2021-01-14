@@ -11,16 +11,11 @@ import styles from "./components/pages/Pages.css";
 import Note from "./components/note/Note";
 
 class App extends React.Component{
-    state = {
-        // chosenNotesId: [],
-        // flexDirection: 'column',
-    };
 
     componentWillUpdate(nextProps, nextState, nextContext) {
         localStorage.setItem('notes', JSON.stringify(nextProps.notes))
     }
     render(){
-        console.log(this.props)
         const noteType = this.props.noteType;
         return (
             <>
@@ -29,7 +24,7 @@ class App extends React.Component{
                     <LeftMenu/>
                 }
                 {
-                    this.props.chosenNotes.length ? <TopPanel/> : <Header/>
+                    this.props.chosenNotesId.length ? <TopPanel/> : <Header/>
                 }
 
                 <main>
@@ -49,7 +44,7 @@ const mapStateToProps = (state) => (
     {
         isVisibleLeftPanel: state.app.isVisibleLeftPanel,
         notes: state.notes.notes,
-        chosenNotes: state.notes.chosenNotes,
+        chosenNotesId: state.notes.chosenNotesId,
         searchedNotes: state.notes.searchedNotes,
         noteType: state.app.noteType,
         isSearched: state.app.isSearchedNotes,

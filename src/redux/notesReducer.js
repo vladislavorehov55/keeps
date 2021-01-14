@@ -16,8 +16,8 @@ const initialState =  localStorage.getItem('notes') !== null ?
     {
 
         notes: JSON.parse(localStorage.getItem('notes')),
-        chosenNotes: [],
-        searchedNotes: []
+        chosenNotesId: [],
+        searchedNotesId: []
     } :
     {
         notes:{
@@ -34,7 +34,7 @@ const initialState =  localStorage.getItem('notes') !== null ?
             archive: [],
             trash: []
         },
-        chosenNotes: [],
+        chosenNotesId: [],
         searchedNotes: []
     };
 export const notesReducer = (state = initialState, action) => {
@@ -53,7 +53,7 @@ export const notesReducer = (state = initialState, action) => {
                 return note
             })}}
         case CHANGE_NOTE_COLOR:
-            return {...state, chosenNotes: [], notes: {...state.notes, [action.payload.noteType]:
+            return {...state, chosenNotesId: [], notes: {...state.notes, [action.payload.noteType]:
                     state.notes[action.payload.noteType].map(note => {
                         if (action.payload.idList.includes(note.id)){
                             note.backgroundColor = action.payload.newColor;
@@ -72,7 +72,7 @@ export const notesReducer = (state = initialState, action) => {
             return {...state, notes:{...state.notes,archive: [...state.notes.archive, action.payload]}};
 
         case ADD_TO_ARCHIVE_IN_NOTE:
-            return {...state,chosenNotes: [], notes: {...state.notes, archive: [...state.notes.archive,
+            return {...state,chosenNotesId: [], notes: {...state.notes, archive: [...state.notes.archive,
                         ...state.notes[action.payload.noteType].filter(note => action.payload.idList.includes(note.id))],
                 [action.payload.noteType]: state.notes[action.payload.noteType].filter(note => !action.payload.idList.includes(note.id))}};
 
@@ -92,24 +92,29 @@ export const notesReducer = (state = initialState, action) => {
                 return {...state, notes: {...state.notes, trash: state.notes.trash.filter(note => !action.payload.idList.includes(note.id))}}
         case DELETE_NOTE_FOREVER:
             return {...state, notes: {...state.notes, [action.payload.noteType]:
-                        state.notes[action.payload.noteType].filter(note => !action.payload.idList.includes(note.id))}}
+                        state.notes[action.payload.noteType].filter(note => !action.payload.idList.includes(note.id))}};
 
         case SELECT_NOTE:
-            const chosenNotes = [...state.chosenNotes];
-            const q = {...state.notes}
+            let chosenNotesId = [...state.chosenNotesId];
+            console.log('FIRST', chosenNotesId)
+            const q = {...state.notes};
             q[action.payload.noteType].forEach(note => {
-                if (action.payload.id === note.id) {
-                    note.isVisibleSolidBorder = !note.isVisibleSolidBorder;
-                    chosenNotes.push(note.id)
+                if (action.payload.id === note.id && !note.isVisibleSolidBorder) {
+                    note.isVisibleSolidBorder = true;
+                    chosenNotesId.push(note.id)
                 }
-            })
-            return {notes: q, chosenNotes}
+                else if (action.payload.id === note.id && note.isVisibleSolidBorder) {
+                    note.isVisibleSolidBorder = false;
+                    chosenNotesId = chosenNotesId.filter(id => id !== action.payload.id)
+                }
+            });
+            return {notes: q, chosenNotesId};
         case UNSELECT_NOTE:
-            return {...state, notes: {[action.payload.noteType]:
+            return {...state, notes: {...state.notes, [action.payload.noteType]:
                         state.notes[action.payload.noteType].map(note => {
-                            if (action.payload.idList.has(note.id)) note.isVisibleSolidBorder = false
+                            if (action.payload.idList.includes(note.id)) note.isVisibleSolidBorder = false;
                             return note
-                        })}, chosenNotes: []};
+                        })}, chosenNotesId: []};
 
         case ADD_PHOTO_IN_NOTE_COMPONENT:
             return {...state, notes: {[action.payload.noteType]: state.notes[action.payload.noteType].map(note => {
@@ -117,14 +122,13 @@ export const notesReducer = (state = initialState, action) => {
                     note.imgSrc = [...note.imgSrc, ...action.payload.srcList]
                 }
                 return note
-                    })}}
+                    })}};
         case SEARCH_NOTE:
             const regex = new RegExp(action.payload.text.toLowerCase());
             const searchedNotes = state.notes[action.payload.noteType].filter(note => {
                 if (note.text.toLowerCase().match(regex) || note.title.toLowerCase().match(regex)) return note
-            })
-            return {...state, searchedNotes: searchedNotes}
-
+            });
+            return {...state, searchedNotes: searchedNotes};
         default: return state
     }
 };

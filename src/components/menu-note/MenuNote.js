@@ -54,8 +54,10 @@ class MenuNote extends React.Component{
         else {
             this.props.addPhotoInNote(this.props.noteType, this.props.id, e.target.files )
         }
-    }
+    };
     onClickAddToArchive = (idList,e) => {
+        console.log(this.props.chosenNotesId)
+        // return
         e.stopPropagation();
         if (this.props.inAddNote) {
             if (!this.props.addNote.title && !this.props.addNote.text && this.props.addNote.imgSrc.length === 0) {
@@ -218,7 +220,7 @@ class MenuNote extends React.Component{
     }
 }
 const mapStateToProps = state => ({notes: state.notes.notes, noteType: state.app.noteType, addNote: state.addNote,
-chosenNotesId: state.notes.chosenNotes});
+chosenNotesId: state.notes.chosenNotesId});
 
 const mapDispatchToProps = ({changeAddNoteColor, changeNoteColor, deleteNote, chooseAddNotePhoto, addNoteToArchive,
     addNoteToArchiveInNote, unselectNotes, addPhotoInNote,

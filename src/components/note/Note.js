@@ -21,13 +21,13 @@ class Note extends React.Component{
     };
     onClickSelectNote = () => {
         this.props.selectNotes(this.props.noteType, this.props.note.id)
-    }
+    };
     onClickDeleteImage = (index) => {
         if (!this.state.text && !this.state.title && this.props.note.imgSrc.length === 1) {
             return this.props.deleteNoteForever(this.props.noteType, [this.props.note.id])
         }
         this.props.deleteImage(this.props.noteType, this.props.note.id, index);
-    }
+    };
     render() {
         const {titleHeight, textHeight, backgroundColor,imgSrc, id} = this.props.note;
         return (

@@ -17,8 +17,8 @@ class TopPanel extends React.Component{
         }
     };
     onClickUnselectNotes = () => {
-        this.props.unselectNotes(this.props.noteType, this.props.chosenNotes)
-    }
+        this.props.unselectNotes(this.props.noteType, this.props.chosenNotesId)
+    };
     render() {
         return (
             <div className={styles.wrapper}>
@@ -28,13 +28,13 @@ class TopPanel extends React.Component{
                     >
                         <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAcwAAAHMBY8FD/gAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAACISURBVDiNrZPRDYAgDERfnE4QdnFpd4Cv+tOYitWQVJImpNxdr0ABduAAqogwE0BVzo5uBOhAmSAXxYpyqSbRge2DvA3Y6ql2IDvkPGCKiPCm3oBkzpLmHi69Ks2IrBo2d3Pn9ZkGQvNcvQqoiK16ufGwC9H1awuhSww9I5GPRPQr88Mwhcb5BAVxpaYUaKiKAAAAAElFTkSuQmCC'/>
                     </div>
-                    {<span>{this.getPhrase(this.props.chosenNotes.size)}</span>}
+                    {<span>{this.getPhrase(this.props.chosenNotesId.length)}</span>}
                 </div>
                 <MenuNote isVisibleMenuNote={true} inTopPanel={true} isVisibleDelBtn={true}/>
             </div>
         )
     }
 }
-const mapStateToProps = state => ({chosenNotes: new Set(state.notes.chosenNotes), noteType: state.app.noteType})
+const mapStateToProps = state => ({chosenNotesId: state.notes.chosenNotesId, noteType: state.app.noteType})
 const mapDispatchToProps = {unselectNotes}
 export default connect(mapStateToProps,mapDispatchToProps)(TopPanel)
