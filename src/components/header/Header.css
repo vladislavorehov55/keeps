@@ -1,3 +1,23 @@
+@media all and (min-width: 840px) {
+    .search-wrapper {
+        border: 0.5px solid black;
+        display: flex;
+        align-items: center;
+        width: 700px;
+        height: 50px;
+        padding-right: 5px;
+    }
+}
+@media all and (max-width: 839px) {
+    .search-wrapper {
+        border: 0.5px solid black;
+        display: flex;
+        align-items: center;
+        width: 350px;
+        height: 50px;
+        padding-right: 5px;
+    }
+}
 .header {
     display: flex;
     width: 100%;
@@ -22,14 +42,7 @@
     box-sizing: border-box;
     border-radius: 10px;
 }
-.search-wrapper {
-    border: 0.5px solid black;
-    display: flex;
-    align-items: center;
-    width: 700px;
-    height: 50px;
-    padding-right: 5px;
-}
+
 
 .input {
     width: 100%;
@@ -45,3 +58,4 @@
     width: 24px;
     height: 24px;
 }
+
