@@ -6,6 +6,16 @@
     margin: 30px auto 0;
     align-items: center;
 }
+@media all and (max-width: 500px ) {
+    .wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        width: 250px;
+        box-sizing: border-box;
+        margin: 30px auto 0;
+        align-items: center;
+    }
+}
 .column {
     flex-direction: column;
 }
