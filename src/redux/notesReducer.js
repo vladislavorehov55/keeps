@@ -9,7 +9,7 @@ import {
     SELECT_NOTE,
     UNSELECT_NOTE,
     ADD_PHOTO_IN_NOTE_COMPONENT,
-    DELETE_NOTE_FOREVER, SEARCH_NOTE,
+    DELETE_NOTE_FOREVER, SEARCH_NOTE, RETURN_FROM_ARCHIVE, RETURN_FROM_TRASH,
 } from "./actionsTypes";
 
 const initialState =  localStorage.getItem('notes') !== null ?
@@ -51,7 +51,7 @@ export const notesReducer = (state = initialState, action) => {
                     note[propertyName + 'Height'] = height;
                 }
                 return note
-            })}}
+            })}};
         case CHANGE_NOTE_COLOR:
             return {...state, chosenNotesId: [], notes: {...state.notes, [action.payload.noteType]:
                     state.notes[action.payload.noteType].map(note => {
@@ -66,15 +66,20 @@ export const notesReducer = (state = initialState, action) => {
                             note.imgSrc = note.imgSrc.filter((el, ind) => ind !== action.payload.index )
                         }
                         return note
-                    })}}
+                    })}};
 
         case ADD_TO_ARCHIVE:
             return {...state, notes:{...state.notes,archive: [...state.notes.archive, action.payload]}};
 
         case ADD_TO_ARCHIVE_IN_NOTE:
-            return {...state,chosenNotesId: [], notes: {...state.notes, archive: [...state.notes.archive,
-                        ...state.notes[action.payload.noteType].filter(note => action.payload.idList.includes(note.id))],
-                [action.payload.noteType]: state.notes[action.payload.noteType].filter(note => !action.payload.idList.includes(note.id))}};
+            const newArchive = state.notes.home.filter(note => {
+                if (action.payload.idList.includes(note.id)) {
+                    note.isVisibleSolidBorder = false;
+                    return  note
+                }
+            });
+            return {...state, chosenNotesId: [], notes: {...state.notes, archive: [...state.notes.archive, ...newArchive],
+                home: state.notes.home.filter(note => !action.payload.idList.includes(note.id))}};
 
         case DELETE_NOTE:
             if (action.payload.noteType === 'home' || action.payload.noteType === 'archive') {
@@ -85,7 +90,7 @@ export const notesReducer = (state = initialState, action) => {
                         newTrash.push(note)
                     }
                 }
-                return {...state, notes: {...state.notes, trash: [...state.notes.trash, ...newTrash],
+                return {...state, chosenNotesId: [],notes: {...state.notes, trash: [...state.notes.trash, ...newTrash],
                         [action.payload.noteType]: state.notes[action.payload.noteType].filter(note => !action.payload.idList.includes(note.id))}}
             }
             else
@@ -96,7 +101,6 @@ export const notesReducer = (state = initialState, action) => {
 
         case SELECT_NOTE:
             let chosenNotesId = [...state.chosenNotesId];
-            console.log('FIRST', chosenNotesId)
             const q = {...state.notes};
             q[action.payload.noteType].forEach(note => {
                 if (action.payload.id === note.id && !note.isVisibleSolidBorder) {
@@ -129,6 +133,24 @@ export const notesReducer = (state = initialState, action) => {
                 if (note.text.toLowerCase().match(regex) || note.title.toLowerCase().match(regex)) return note
             });
             return {...state, searchedNotes: searchedNotes};
+        case RETURN_FROM_ARCHIVE:
+            const newHome = state.notes.archive.filter(note => {
+                if (action.payload.includes(note.id)) {
+                    note.isVisibleSolidBorder = false;
+                    return note
+                }
+            });
+            return {...state, chosenNotesId: [], notes: {...state.notes, home: [...state.notes.home, ...newHome],
+                    archive: state.notes.archive.filter(note => !action.payload.includes(note.id))}};
+        case RETURN_FROM_TRASH:
+            const newHome2 = state.notes.trash.filter(note => {
+                if (action.payload.includes(note.id)) {
+                    note.isVisibleSolidBorder = false;
+                    return note
+                }
+            });
+            return {...state, chosenNotesId: [], notes: {...state.notes, home: [...state.notes.home, ...newHome2],
+                trash: state.notes.trash.filter(note => !action.payload.includes(note.id))}};
         default: return state
     }
 };

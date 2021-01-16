@@ -6,9 +6,15 @@ import {
     changeNoteColor,
     chooseAddNotePhoto,
     deleteNote,
-    getAddNoteInitState, addNoteToArchiveInNote, addNoteToArchive, unselectNotes, addPhotoInNote
+    getAddNoteInitState,
+    addNoteToArchiveInNote,
+    addNoteToArchive,
+    unselectNotes,
+    addPhotoInNote,
+    returnFromArchive,
+    returnFromTrash
 } from "../../redux/actionsCreator";
-import {saveNotes} from "../../../functions";
+
 
 class MenuNote extends React.Component{
     state = {
@@ -56,8 +62,6 @@ class MenuNote extends React.Component{
         }
     };
     onClickAddToArchive = (idList,e) => {
-        console.log(this.props.chosenNotesId)
-        // return
         e.stopPropagation();
         if (this.props.inAddNote) {
             if (!this.props.addNote.title && !this.props.addNote.text && this.props.addNote.imgSrc.length === 0) {
@@ -68,22 +72,14 @@ class MenuNote extends React.Component{
         else {
             this.props.addNoteToArchiveInNote(this.props.noteType,
                 this.props.chosenNotesId.length !== 0 ? Array.from(this.props.chosenNotesId) : [this.props.id]);
-            saveNotes(this.props.notes)
+            // saveNotes(this.props.notes)
         }
-    }
+    };
     onClickDeleteNote = () => {
         this.props.deleteNote(this.props.noteType,
             this.props.chosenNotesId.length !== 0 ? Array.from(this.props.chosenNotesId) : [this.props.id])
-    }
 
-    // componentWillUpdate(nextProps, nextState, nextContext) {
-    //     if (nextProps.isVisibleMenuNote === false && (this.state.menuColor.isVisible || this.state.menuMore.isVisible)) {
-    //         this.setState({...this.state, menuColor: {isVisible: false},
-    //                 menuMore: {isVisible: false}}
-    //         )
-    //     }
-    // }
-
+    };
     render() {
         return(
             <div className={styles.menu}>
@@ -152,9 +148,8 @@ class MenuNote extends React.Component{
                     {
                         this.props.noteType === 'home' &&
                         <div title='Архивировать'
-                             // onClick={this.onClickAddToArchive.bind(this,[this.props.id])}
                              onClick={this.onClickAddToArchive.bind(this, this.props.chosenNotesId ?
-                            Array.from(this.props.chosenNotesId) : [this.props.id])}
+                                 this.props.chosenNotesId: [this.props.id])}
                         >
                             <svg className={styles.svg}>
                                 <path d="M20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM6.24 5h11.52l.83 1H5.42l.82-1zM5 19V8h14v11H5zm11-5.5l-4 4-4-4 1.41-1.41L11 13.67V10h2v3.67l1.59-1.59L16 13.5z"/>
@@ -163,8 +158,10 @@ class MenuNote extends React.Component{
                     }
                     {
                         this.props.noteType === 'archive' &&
-                            <div title='Разархивировать' onClick={this.props.returnFromArchive.bind(this, this.props.chosenNotesId ?
-                                Array.from(this.props.chosenNotesId) :[this.props.id])}>
+                            <div title='Разархивировать'
+                                 onClick={this.props.returnFromArchive.bind(this, this.props.chosenNotesId.length ?
+                                this.props.chosenNotesId :[this.props.id])}
+                            >
                                 <svg className={styles.svg}>
                                     <path d='M20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM6.24 5h11.52l.83 1H5.42l.82-1zM5 19V8h14v11H5zm3-5.5l4-4 4 4-1.41 1.41L13 13.33V17h-2v-3.67l-1.59 1.59L8 13.5z'/>
                                 </svg>
@@ -199,12 +196,12 @@ class MenuNote extends React.Component{
                         this.props.noteType === 'trash' &&
                         <div className={styles.svgDelWrapper}>
                             <svg className={styles.svg} onClick={this.props.deleteNote.bind(this, this.props.noteType,
-                                this.props.chosenNotesId.length !== 0 ? Array.from(this.props.chosenNotesId) : [this.props.id])}>
+                                this.props.chosenNotesId.length !== 0 ? this.props.chosenNotesId : [this.props.id])}>
                                 <path d='M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z'/>
                             </svg>
                             <svg className={styles.svg}
-                                 // onClick={this.props.returnFromTrash.bind(this, this.props.chosenNotesId ? Array.from(this.props.chosenNotesId) :
-                                 // [this.props.id])}
+                                 onClick={this.props.returnFromTrash.bind(null, this.props.chosenNotesId.length ?
+                                     this.props.chosenNotesId : [this.props.id])}
                             >
                                 <path d='M19 4h-3.5l-1-1h-5l-1 1H5v2h14zM6 7v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zm8 7v4h-4v-4H8l4-4 4 4h-2z'/>
                             </svg>
@@ -223,6 +220,6 @@ const mapStateToProps = state => ({notes: state.notes.notes, noteType: state.app
 chosenNotesId: state.notes.chosenNotesId});
 
 const mapDispatchToProps = ({changeAddNoteColor, changeNoteColor, deleteNote, chooseAddNotePhoto, addNoteToArchive,
-    addNoteToArchiveInNote, unselectNotes, addPhotoInNote,
+    addNoteToArchiveInNote, unselectNotes, addPhotoInNote, returnFromArchive, returnFromTrash,
     getAddNoteInitState});
 export default connect(mapStateToProps, mapDispatchToProps)(MenuNote)

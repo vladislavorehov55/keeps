@@ -9,11 +9,12 @@ import TopPanel from "./components/top-panel/TopPanel";
 import AddNote from "./components/add-note/AddNote";
 import styles from "./components/pages/Pages.css";
 import Note from "./components/note/Note";
+import {saveNotes} from "../functions";
 
 class App extends React.Component{
 
     componentWillUpdate(nextProps, nextState, nextContext) {
-        localStorage.setItem('notes', JSON.stringify(nextProps.notes))
+        saveNotes(nextProps.notes)
     }
     render(){
         const noteType = this.props.noteType;
@@ -28,7 +29,7 @@ class App extends React.Component{
                 }
 
                 <main>
-                    {this.props.noteType === 'home' && <AddNote/> }
+                    <AddNote/>
                     <div className={`${styles.wrapper} ${this.props.isFlexDirectionColumn ? styles.column : styles.row}`}>
                         {
                             this.props.isSearched ?

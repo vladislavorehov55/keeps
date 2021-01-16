@@ -15,7 +15,13 @@ import {
     ADD_TO_ARCHIVE_IN_NOTE,
     UNSELECT_NOTE,
     ADD_PHOTO_IN_NOTE_COMPONENT,
-    DELETE_NOTE_FOREVER, SEARCH_NOTE, GET_SEARCHED_NOTES, CANCEL_SEARCH_NOTE, CHANGE_FLEX_DIRECTION,
+    DELETE_NOTE_FOREVER,
+    SEARCH_NOTE,
+    GET_SEARCHED_NOTES,
+    CANCEL_SEARCH_NOTE,
+    CHANGE_FLEX_DIRECTION,
+    CHANGE_PAGE,
+    RETURN_FROM_ARCHIVE, RETURN_FROM_TRASH,
 } from "./actionsTypes";
 
 export function showLeftPanel(flag) {
@@ -109,7 +115,16 @@ export function changeFlexDirection() {
     return {type: CHANGE_FLEX_DIRECTION}
 }
 
+export function changePage(pageName) {
+    return {type: CHANGE_PAGE, payload: pageName}
+}
 
+export function returnFromArchive(idList) {
+    return {type: RETURN_FROM_ARCHIVE, payload: idList}
+}
+export function returnFromTrash(idList) {
+    return {type: RETURN_FROM_TRASH, payload: idList}
+}
 
 
 

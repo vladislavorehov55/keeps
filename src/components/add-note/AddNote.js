@@ -40,7 +40,9 @@ class AddNote extends React.Component{
 
     render() {
         return(
-            <div className={styles.wrapper} ref={this.elAddNoteRef} style={{backgroundColor: this.props.addNote.backgroundColor}}>
+            <div className={styles.wrapper} ref={this.elAddNoteRef}
+                 style={this.props.noteType === 'home' ? {backgroundColor: this.props.addNote.backgroundColor, display:''} :
+                     {backgroundColor: this.props.addNote.backgroundColor, display: 'none'}}>
                 {
                     this.props.addNote.imgSrc.length !== 0 &&
                     <div className={styles.imgWrapper}>
@@ -81,7 +83,7 @@ class AddNote extends React.Component{
     }
 }
 const mapStateToProps = state => (
-    {notes: state.notes.notes, addNote: state.addNote}
+    {notes: state.notes.notes, addNote: state.addNote, noteType: state.app.noteType}
 );
 const mapDispatchToProps = {createNote, openAddNote, enterNoteContent, getAddNoteInitState};
 export default connect(mapStateToProps, mapDispatchToProps)(AddNote)
