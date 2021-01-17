@@ -35,9 +35,9 @@ class Header extends React.Component{
                         <path d='M 3 18 h 18 v -2 H 3 v 2 Z m 0 -5 h 18 v -2 H 3 v 2 Z m 0 -7 v 2 h 18 V 6 H 3 Z'/>
                     </svg>
                     {this.props.noteType === 'home' && <img src='https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png'/>}
-                    {this.props.noteType === 'home' && <span>Keep</span>}
-                    {this.props.noteType === 'archive' && <span>Архив</span>}
-                    {this.props.noteType === 'trash' && <span>Корзина</span>}
+                    {this.props.noteType === 'home' && <span className={styles.pageName}>Keep</span>}
+                    {this.props.noteType === 'archive' && <span className={styles.pageName}>Архив</span>}
+                    {this.props.noteType === 'trash' && <span className={styles.pageName}>Корзина</span>}
                 </div>
                 <div className={styles.item}>
                     <div className={styles.searchWrapper}>
