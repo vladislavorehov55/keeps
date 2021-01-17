@@ -7,7 +7,7 @@ import Header from "./components/header/Header";
 import TopPanel from "./components/top-panel/TopPanel";
 
 import AddNote from "./components/add-note/AddNote";
-import styles from "./components/pages/Pages.css";
+import styles from "./app.css";
 import Note from "./components/note/Note";
 import {saveNotes} from "../functions";
 
@@ -30,6 +30,10 @@ class App extends React.Component{
 
                 <main>
                     <AddNote/>
+                    {
+                        !this.props.notes[this.props.noteType].length &&
+                        <h1 className={styles.message}>Заметок в данном разделе нет</h1>
+                    }
                     <div className={`${styles.wrapper} ${this.props.isFlexDirectionColumn ? styles.column : styles.row}`}>
                         {
                             this.props.isSearched ?
