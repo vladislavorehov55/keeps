@@ -86,22 +86,6 @@ class MenuNote extends React.Component{
                 <div className={styles.menuLeftItems}>
                     {
                         this.props.noteType !== 'trash' &&
-                            <>
-                                <div title='Сохранить напоминание'>
-                                    <svg className={styles.svg}>
-                                        <path d="M13 9h-2v2H9v2h2v2h2v-2h2v-2h-2z"/>
-                                        <path d="M18 17v-6c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v6H4v2h16v-2h-2zm-2 0H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6zm-4 5c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2z"/>
-                                    </svg>
-                                </div>
-                                <div title='Соавторы'>
-                                    <svg className={styles.svg}>
-                                        <path d="M9 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0-6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm0 7c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4zm6 5H3v-.99C3.2 16.29 6.3 15 9 15s5.8 1.29 6 2v1zm3-4v-3h-3V9h3V6h2v3h3v2h-3v3h-2z"/>
-                                    </svg>
-                                </div>
-                            </>
-                    }
-                    {
-                        this.props.noteType !== 'trash' &&
                         <div title='Изменить цвет' id='menu-color' className={styles.btnChangeColor}
                              onClick={this.closeAndOpenSubMenu.bind(this, 'menuColor')}>
                             <svg className={styles.svg}>
@@ -186,7 +170,7 @@ class MenuNote extends React.Component{
 
                                 >Удалить заметку</div>
                                 }
-                                <div className={styles.menuMoreItem}>Добавить рисунок</div>
+
                             </div>
                         }
                         </div>
