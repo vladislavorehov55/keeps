@@ -1,0 +1,26 @@
+.wrap {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 86px;
+    border-bottom: 1px solid black;
+    justify-content: space-between;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+.leftGroup {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 125px;
+}
+.rightGroupWrap {
+    width: 380px;
+    display: flex;
+    justify-content: flex-end;
+}
+.rightGroup {
+    width: 50%;
+}

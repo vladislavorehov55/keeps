@@ -1,0 +1,50 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2.5% 5%;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+    height: 86px;
+    background: #fff;
+    z-index: 10;
+}
+.leftGroup {
+    display: flex;
+    align-items: center;
+}
+.btnMenu {
+    width: 24px;
+    height: 24px;
+    margin-right: 2.5%;
+}
+.wrap {
+    height: 46px;
+    border: 1px solid black;
+    border-radius: 10px;
+    flex-basis: 200px;
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin-left: 1%;
+    margin-right: 1%;
+    display: flex;
+    align-items: center;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+.btnSearch {
+    height: 24px;
+}
+.input {
+    height: 100%;
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    outline: none;
+    margin-left: 2%;
+}
+.imgWrap {
+    cursor: pointer;
+}

@@ -1,0 +1,20 @@
+.wrap {
+    margin: 0;
+    padding: 25px 0 0;
+    list-style: none;
+    display: flex;
+
+}
+.list {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.grid {
+    flex-direction: row;
+    padding-left: 5%;
+    padding-right: 5%;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+}

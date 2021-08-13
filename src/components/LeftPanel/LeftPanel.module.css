@@ -1,0 +1,37 @@
+.wrap {
+    padding-top: 1%;
+    width: 200px;
+    height: 100%;
+    position: fixed;
+    left: -280px;
+    z-index: 1;
+    border-right: 1px solid black;
+    background: white;
+}
+.animated {
+    transition-property: left;
+    transition-duration: 0.5s;
+}
+.wrapShow {
+    left: 0;
+}
+.btn {
+    width: 100%;
+    height: 48px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+.active {
+    background: #feefc3!important;
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+}
+.btn:hover {
+    /*background: rgb(241, 243, 244)!important;*/
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+}
+.title {
+    margin-left: 20px;
+}

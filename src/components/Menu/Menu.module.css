@@ -1,0 +1,32 @@
+.wrap {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+}
+.imgWrap {
+    position: relative;
+    cursor: pointer;
+}
+.colorImg:hover .colorSubmenu, .moreImg:hover .moreSubmenu {
+    display: block;
+}
+.colorSubmenu, .moreSubmenu {
+    position: absolute;
+    border: 1px solid black;
+    display: none;
+    background: white;
+    z-index: 2;
+}
+.colorSubmenuSvg {
+    width: 80px;
+    height: 80px;
+}
+.moreSubmenu {
+    width: 70px;
+}
+.moreSubmenuInTopPanel{
+    right: 0;
+}
+.trashIconsWrap {
+    display: flex;
+}

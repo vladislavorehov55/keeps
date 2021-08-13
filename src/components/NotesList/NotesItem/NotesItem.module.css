@@ -1,0 +1,78 @@
+.wrap {
+    border: 1px solid black ;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 8px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.iconChoose {
+    display: none;
+    position: absolute;
+    top: -8px;
+    left: -10px;
+    cursor: pointer;
+}
+.wrap:hover .iconChoose {
+    display: block;
+}
+.menuWrap {
+    display: none;
+}
+.wrap:hover .menuWrap{
+    display: block;
+}
+.image {
+    width: 100%;
+}
+.list {
+    width: 380px;
+    max-width: 95%;
+    margin-bottom: 20px;
+}
+.grid {
+    width: 200px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+.textarea {
+    resize: none;
+    border: none;
+    outline: none;
+    padding: 0;
+    font-size: 15px;
+    background: transparent;
+}
+
+.white {
+    background: white;
+}
+.grey{
+    background: grey;
+}
+.blue {
+    background: blue;
+}
+.red {
+    background: red;
+}
+.green {
+    background: green;
+}
+.yellow {
+    background: yellow;
+}
+.pink {
+    background: pink;
+}
+.orange {
+    background: orange;
+}
+.brown {
+    background: brown;
+}
+.thickBorder {
+    border: 2.5px solid black;
+}
